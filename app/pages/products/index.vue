@@ -1,19 +1,39 @@
 <script setup lang="ts">
 import type { Paged } from '#shared/types/api'
-import type { Product } from '#shared/types/product'
+import type { Product, ProductStatus } from '#shared/types/product'
 
 useHead({ title: 'Products' })
 
-// The data already loads. You don't need to understand useFetch until Day 2.
+// Load the list once and filter in the browser (fine for ~100 items).
+// Home exercise 03 moves search and pagination to the server.
 const { data, status, error, refresh } = await useFetch<Paged<Product>>('/api/products', {
   query: { size: 100 },
 })
 
 const products = computed(() => data.value?.items ?? [])
 
-// TODO (Day 1): add a search box and filter the list with `computed`.
-// Stretch: move the search into a generic `useSearch<T>()` composable and add a status filter.
-// See exercises/day-1-product-list.md
+const { search, results } = useSearch(products, ['name', 'sku'])
+
+type StatusFilter = ProductStatus | 'all'
+
+const statusFilter = ref<StatusFilter>('all')
+
+const statusOptions: { label: string; value: StatusFilter }[] = [
+  { label: 'All statuses', value: 'all' },
+  { label: 'Active', value: 'active' },
+  { label: 'Archived', value: 'archived' },
+]
+
+// Derived data → computed. Never a watch that copies values around.
+const visibleProducts = computed(() =>
+  statusFilter.value === 'all'
+    ? results.value
+    : results.value.filter((p) => p.status === statusFilter.value),
+)
+
+function openProduct(id: number) {
+  return navigateTo(`/products/${id}`)
+}
 </script>
 
 <template>
@@ -24,6 +44,22 @@ const products = computed(() => data.value?.items ?? [])
         <p class="text-sm text-slate-500">{{ products.length }} products in the catalogue</p>
       </div>
       <!-- TODO (Day 2): "Add product" button, visible only with the product.create permission -->
+    </div>
+
+    <div class="flex flex-col gap-3 sm:flex-row">
+      <UiInput
+        v-model="search"
+        type="search"
+        placeholder="Search by name or SKU"
+        aria-label="Search products"
+        class="sm:max-w-sm"
+      />
+      <UiSelect
+        v-model="statusFilter"
+        :options="statusOptions"
+        aria-label="Filter by status"
+        class="sm:w-48"
+      />
     </div>
 
     <!-- Every data screen handles four states: loading, error, empty, success. -->
@@ -42,21 +78,19 @@ const products = computed(() => data.value?.items ?? [])
       description="Products you add will show up here."
     />
 
-    <!-- TODO (Day 1): replace this plain list with a grid of <ProductCard> components. -->
-    <ul v-else class="divide-y divide-slate-200 rounded-xl border border-slate-200 bg-white">
-      <li
-        v-for="product in products"
+    <UiEmptyState
+      v-else-if="visibleProducts.length === 0"
+      title="No products match your filters"
+      description="Try a different search or status."
+    />
+
+    <div v-else class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <ProductCard
+        v-for="product in visibleProducts"
         :key="product.id"
-        class="flex items-center justify-between gap-4 px-4 py-3"
-      >
-        <div>
-          <NuxtLink :to="`/products/${product.id}`" class="font-medium text-ink hover:underline">
-            {{ product.name }}
-          </NuxtLink>
-          <p class="text-xs text-slate-500">{{ product.sku }}</p>
-        </div>
-        <span class="text-sm font-semibold text-ink">{{ formatPrice(product.price) }}</span>
-      </li>
-    </ul>
+        :product="product"
+        @select="openProduct"
+      />
+    </div>
   </div>
 </template>
