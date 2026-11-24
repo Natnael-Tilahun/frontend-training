@@ -1,0 +1,46 @@
+{
+  "name": "vue-nuxt-training",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Hands-on training repo: TypeScript, Vue 3, Nuxt 4, Tailwind CSS, Pinia and Zod.",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "typecheck": "nuxt typecheck",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "check": "npm run lint && npm run typecheck && npm run test"
+  },
+  "dependencies": {
+    "@pinia/nuxt": "^1.0.3",
+    "@tailwindcss/vite": "^4.3.5",
+    "@vee-validate/zod": "^4.15.1",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "nuxt": "^4.7.0",
+    "pinia": "^4.1.0",
+    "tailwind-merge": "^3.7.1",
+    "tailwindcss": "^4.3.5",
+    "vee-validate": "^4.15.1",
+    "vue": "^3.5.46",
+    "vue-router": "^5.5.1",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@nuxt/eslint": "^1.17.0",
+    "eslint": "^10.15.0",
+    "prettier": "^3.10.1",
+    "typescript": "^5.9.3",
+    "vitest": "^5.1.1",
+    "vue-tsc": "^3.3.14"
+  }
+}
