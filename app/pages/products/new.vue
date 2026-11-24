@@ -1,11 +1,18 @@
 <script setup lang="ts">
+import type { ProductInput } from '#shared/schemas/product'
+
+// Checked by middleware/auth.global.ts before the page loads.
+definePageMeta({ permission: 'product.create' })
 useHead({ title: 'Add product' })
 
-// TODO (Day 2): the create-product page.
-// - protect it: definePageMeta({ permission: 'product.create' }) (needs the auth middleware)
-// - render <ProductForm submit-label="Create product" :action="createProduct" />
-// - createProduct: useProducts().create(values) → success toast → navigate to the new product
-// See exercises/day-2-create-product.md
+const { create } = useProducts()
+const toast = useToast()
+
+async function createProduct(values: ProductInput) {
+  const product = await create(values)
+  toast.success('Product created', product.name)
+  await navigateTo(`/products/${product.id}`)
+}
 </script>
 
 <template>
@@ -16,8 +23,8 @@ useHead({ title: 'Add product' })
 
     <h1 class="text-2xl font-bold text-ink">Add product</h1>
 
-    <UiAlert tone="info" title="TODO (Day 2)">
-      Build the product form here. Schema: shared/schemas/product.ts
-    </UiAlert>
+    <UiCard>
+      <ProductForm submit-label="Create product" :action="createProduct" />
+    </UiCard>
   </div>
 </template>

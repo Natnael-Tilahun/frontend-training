@@ -1,9 +1,13 @@
 <script setup lang="ts">
 const { public: config } = useRuntimeConfig()
+const auth = useAuthStore()
 
 const navigation = [{ label: 'Products', to: '/products' }]
 
-// TODO (Day 2): show the signed-in user's name and a "Sign out" button in the header.
+async function logout() {
+  auth.logout()
+  await navigateTo('/login')
+}
 </script>
 
 <template>
@@ -26,7 +30,12 @@ const navigation = [{ label: 'Products', to: '/products' }]
     <div class="flex min-w-0 flex-1 flex-col">
       <header
         class="flex h-16 items-center justify-end gap-4 border-b border-slate-200 bg-white px-6"
-      />
+      >
+        <template v-if="auth.user">
+          <span class="text-sm text-slate-600">{{ auth.user.name }}</span>
+          <UiButton variant="secondary" size="sm" @click="logout">Sign out</UiButton>
+        </template>
+      </header>
 
       <main class="mx-auto w-full max-w-6xl flex-1 p-6">
         <slot />

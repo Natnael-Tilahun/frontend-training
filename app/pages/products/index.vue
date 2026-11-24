@@ -4,6 +4,8 @@ import type { Product, ProductStatus } from '#shared/types/product'
 
 useHead({ title: 'Products' })
 
+const auth = useAuthStore()
+
 // Load the list once and filter in the browser (fine for ~100 items).
 // Home exercise 03 moves search and pagination to the server.
 const { data, status, error, refresh } = await useFetch<Paged<Product>>('/api/products', {
@@ -43,7 +45,8 @@ function openProduct(id: number) {
         <h1 class="text-2xl font-bold text-ink">Products</h1>
         <p class="text-sm text-slate-500">{{ products.length }} products in the catalogue</p>
       </div>
-      <!-- TODO (Day 2): "Add product" button, visible only with the product.create permission -->
+      <!-- UI convenience only: the API rejects the request anyway without permission. -->
+      <UiButton v-if="auth.can('product.create')" to="/products/new">Add product</UiButton>
     </div>
 
     <div class="flex flex-col gap-3 sm:flex-row">
