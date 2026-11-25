@@ -14,7 +14,7 @@ You don't need to understand Nuxt yet. Work only in the files listed below; the 
 
 ## Core
 
-- [ ] Create `ProductCard.vue` with a **typed** prop `product: Product`. Show the name, SKU, price (`formatPrice`), stock and status (`<ProductStatusBadge>`).
+- [ ] Create `ProductCard.vue` with a **typed** prop `product: Product`. Show the name, SKU, price (`formatPrice`), stock (`<ProductStockLabel>`) and status (`<ProductStatusBadge>`). `<ProductCardSkeleton>` shows the card shape while loading.
 - [ ] Give the card a **typed** event `select: [id: number]` and a "View" button that emits it. The page navigates to `/products/:id` when it hears the event.
 - [ ] Render the list with `v-for` and a proper `:key`.
 - [ ] Add a search box (`<UiInput v-model="search">`) that filters by name with `computed`, not `watch`.
