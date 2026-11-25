@@ -18,17 +18,15 @@ const products = computed(() => data.value?.items ?? [])
 
 <template>
   <div class="flex flex-col gap-6">
-    <div class="flex flex-wrap items-center justify-between gap-4">
-      <div>
-        <h1 class="text-2xl font-bold text-ink">Products</h1>
-        <p class="text-sm text-slate-500">{{ products.length }} products in the catalogue</p>
-      </div>
-      <!-- TODO (Day 2): "Add product" button, visible only with the product.create permission -->
-    </div>
+    <UiPageHeader title="Products" description="Everything in the catalogue, with price and stock.">
+      <!-- TODO (Day 2): an "Add product" button in an #actions slot, visible only with the product.create permission -->
+    </UiPageHeader>
+
+    <!-- TODO (Day 1): a search box (and, as a stretch, a status filter) goes here. -->
 
     <!-- Every data screen handles four states: loading, error, empty, success. -->
-    <div v-if="status === 'pending'" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      <div v-for="n in 6" :key="n" class="h-36 animate-pulse rounded-xl bg-slate-200" />
+    <div v-if="status === 'pending'" class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <ProductCardSkeleton v-for="n in 6" :key="n" />
     </div>
 
     <UiAlert v-else-if="error" title="Could not load products">
@@ -43,19 +41,22 @@ const products = computed(() => data.value?.items ?? [])
     />
 
     <!-- TODO (Day 1): replace this plain list with a grid of <ProductCard> components. -->
-    <ul v-else class="divide-y divide-slate-200 rounded-xl border border-slate-200 bg-white">
+    <ul
+      v-else
+      class="divide-y divide-slate-100 rounded-xl border border-slate-200 bg-white shadow-card"
+    >
       <li
         v-for="product in products"
         :key="product.id"
-        class="flex items-center justify-between gap-4 px-4 py-3"
+        class="flex items-center justify-between gap-4 px-5 py-3.5"
       >
-        <div>
+        <div class="min-w-0">
           <NuxtLink :to="`/products/${product.id}`" class="font-medium text-ink hover:underline">
             {{ product.name }}
           </NuxtLink>
-          <p class="text-xs text-slate-500">{{ product.sku }}</p>
+          <p class="font-mono text-xs text-slate-500">{{ product.sku }}</p>
         </div>
-        <span class="text-sm font-semibold text-ink">{{ formatPrice(product.price) }}</span>
+        <span class="font-semibold text-ink tabular-nums">{{ formatPrice(product.price) }}</span>
       </li>
     </ul>
   </div>

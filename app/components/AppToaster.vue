@@ -1,34 +1,50 @@
 <script setup lang="ts">
+import { CircleAlert, CircleCheck, Info, X } from 'lucide-vue-next'
+
 const { toasts, dismiss } = useToast()
 
-const toneClasses = {
-  success: 'border-brand-200 bg-brand-50 text-brand-900',
-  error: 'border-red-200 bg-red-50 text-red-900',
-  info: 'border-slate-200 bg-white text-slate-900',
+const tones = {
+  success: { icon: CircleCheck, color: 'text-brand-600' },
+  error: { icon: CircleAlert, color: 'text-red-600' },
+  info: { icon: Info, color: 'text-sky-600' },
 } as const
 </script>
 
 <template>
-  <div class="fixed right-4 bottom-4 z-50 flex w-80 flex-col gap-2" aria-live="polite">
-    <div
-      v-for="toast in toasts"
-      :key="toast.id"
-      :class="cn('rounded-xl border p-4 shadow-lg', toneClasses[toast.tone])"
+  <div
+    class="pointer-events-none fixed inset-x-4 bottom-4 z-50 flex flex-col items-end gap-2 sm:inset-x-auto sm:right-6 sm:bottom-6"
+    aria-live="polite"
+  >
+    <TransitionGroup
+      leave-active-class="transition duration-150 ease-in"
+      leave-to-class="opacity-0 translate-x-2"
     >
-      <div class="flex items-start justify-between gap-3">
-        <div>
-          <p class="text-sm font-semibold">{{ toast.title }}</p>
-          <p v-if="toast.description" class="mt-0.5 text-sm opacity-80">{{ toast.description }}</p>
+      <div
+        v-for="toast in toasts"
+        :key="toast.id"
+        class="pointer-events-auto flex w-full animate-toast-in items-start gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-pop sm:w-96"
+        :role="toast.tone === 'error' ? 'alert' : 'status'"
+      >
+        <component
+          :is="tones[toast.tone].icon"
+          :class="cn('mt-0.5 size-5 shrink-0', tones[toast.tone].color)"
+          aria-hidden="true"
+        />
+        <div class="min-w-0 flex-1">
+          <p class="text-sm font-semibold text-ink">{{ toast.title }}</p>
+          <p v-if="toast.description" class="mt-0.5 text-sm text-slate-500">
+            {{ toast.description }}
+          </p>
         </div>
         <button
           type="button"
-          class="text-sm opacity-60 hover:opacity-100"
-          aria-label="Dismiss"
+          class="-m-1 rounded-md p-1 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700"
+          aria-label="Dismiss notification"
           @click="dismiss(toast.id)"
         >
-          ✕
+          <X class="size-4" aria-hidden="true" />
         </button>
       </div>
-    </div>
+    </TransitionGroup>
   </div>
 </template>

@@ -3,7 +3,7 @@ defineProps<{ class?: string }>()
 </script>
 
 <template>
-  <div :class="cn('rounded-xl border border-slate-200 bg-white p-6 shadow-sm', $props.class)">
+  <div :class="cn('rounded-xl border border-slate-200 bg-white p-6 shadow-card', $props.class)">
     <slot />
   </div>
 </template>

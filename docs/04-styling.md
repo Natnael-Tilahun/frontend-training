@@ -35,6 +35,30 @@ This follows the **shadcn-vue** idea: small components that live **in your proje
 - `cn()` (`app/utils/cn.ts`) merges classes and resolves conflicts: `cn('px-2', 'px-4')` → `'px-4'`.
 - Components accept a `class` prop so callers can adjust spacing without forking the component.
 
+What's in the kit:
+
+| Component                                      | Use it for                                                       |
+| ---------------------------------------------- | ---------------------------------------------------------------- |
+| `UiPageHeader`                                 | The top of every page: back link, title, badge, actions          |
+| `UiButton`                                     | Every button and button-styled link (`to`), with `loading`       |
+| `UiInput`, `UiTextarea`, `UiSelect`            | Form controls; pair them with `UiFormField` for label and error  |
+| `UiCard`, `UiBadge`, `UiAlert`, `UiEmptyState` | Surfaces, status labels, errors and the empty states of a screen |
+| `UiAvatar`, `UiLogo`, `UiSpinner`              | Small building blocks used by the layout                         |
+
+**Icons** come from [Lucide](https://lucide.dev/icons/) (`lucide-vue-next`). Import each icon you use, so only those end up in the bundle:
+
+```vue
+<script setup lang="ts">
+import { Plus } from 'lucide-vue-next'
+</script>
+
+<template>
+  <UiButton to="/products/new"><Plus /> Add product</UiButton>
+</template>
+```
+
+Inside `UiButton`, icons are sized automatically. Elsewhere, give them a size (`class="size-4"`) and `aria-hidden="true"` when they are decoration next to text.
+
 ## When to extract a component
 
 - The same group of classes appears in 3+ places → make a component (or a variant).
@@ -45,4 +69,5 @@ This follows the **shadcn-vue** idea: small components that live **in your proje
 
 - Every input has a `<label>` (see `UiFormField`) or an `aria-label`.
 - Buttons are `<button>`, links are `<NuxtLink>`. Never a clickable `<div>`.
+- A whole card can be clickable without a clickable `<div>`: keep one real `<button>` inside and stretch it over the card with `after:absolute after:inset-0` (see `ProductCard`).
 - Visible focus styles (`focus-visible:`) are kept, not removed.

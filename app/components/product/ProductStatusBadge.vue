@@ -7,5 +7,5 @@ const label = computed(() => (props.status === 'active' ? 'Active' : 'Archived')
 </script>
 
 <template>
-  <UiBadge :tone="status === 'active' ? 'success' : 'neutral'">{{ label }}</UiBadge>
+  <UiBadge :tone="status === 'active' ? 'success' : 'neutral'" dot>{{ label }}</UiBadge>
 </template>

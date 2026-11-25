@@ -10,11 +10,15 @@ useHead({ title: 'Sign in' })
 </script>
 
 <template>
-  <UiCard class="flex flex-col gap-3">
-    <h1 class="text-xl font-bold text-ink">Sign in</h1>
+  <div class="flex flex-col gap-8">
+    <div>
+      <h1 class="text-2xl font-semibold tracking-tight">Sign in</h1>
+      <p class="mt-1.5 text-sm text-slate-500">Welcome back. Enter your details to continue.</p>
+    </div>
+
     <UiAlert tone="info" title="TODO (Day 2)">
       Build the sign-in form here. Demo accounts: admin@inventory.test / admin123 ·
       viewer@inventory.test / viewer123
     </UiAlert>
-  </UiCard>
+  </div>
 </template>
