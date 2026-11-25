@@ -9,12 +9,12 @@ useHead({ title: 'Add product' })
 </script>
 
 <template>
-  <div class="flex flex-col gap-6">
-    <NuxtLink to="/products" class="text-sm font-medium text-brand-700 hover:underline">
-      ← Back to products
-    </NuxtLink>
-
-    <h1 class="text-2xl font-bold text-ink">Add product</h1>
+  <div class="flex flex-col gap-8">
+    <UiPageHeader
+      title="Add product"
+      description="New products appear in the catalogue as soon as you save them."
+      :back="{ to: '/products', label: 'Products' }"
+    />
 
     <UiAlert tone="info" title="TODO (Day 2)">
       Build the product form here. Schema: shared/schemas/product.ts

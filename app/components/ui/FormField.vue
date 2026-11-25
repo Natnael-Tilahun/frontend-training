@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { CircleAlert } from 'lucide-vue-next'
+
 /**
  * Label + control + error message, wired for accessibility.
  * The slot receives the generated `id` so the label points at the control:
@@ -21,10 +23,13 @@ const id = useId()
   <div class="flex flex-col gap-1.5">
     <label :for="id" class="text-sm font-medium text-slate-800">
       {{ label }}
-      <span v-if="required" class="text-red-600" aria-hidden="true">*</span>
+      <span v-if="required" class="text-red-500" aria-hidden="true">*</span>
     </label>
     <slot :id="id" :invalid="Boolean(error)" />
-    <p v-if="error" class="text-sm text-red-600" role="alert">{{ error }}</p>
-    <p v-else-if="hint" class="text-sm text-slate-500">{{ hint }}</p>
+    <p v-if="error" class="flex items-center gap-1.5 text-xs font-medium text-red-600" role="alert">
+      <CircleAlert class="size-3.5 shrink-0" aria-hidden="true" />
+      {{ error }}
+    </p>
+    <p v-else-if="hint" class="text-xs text-slate-500">{{ hint }}</p>
   </div>
 </template>

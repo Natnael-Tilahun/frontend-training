@@ -1,6 +1,12 @@
+<script setup lang="ts">
+import { LoaderCircle } from 'lucide-vue-next'
+
+defineProps<{ class?: string }>()
+</script>
+
 <template>
-  <span
-    class="inline-block animate-spin rounded-full border-2 border-current border-r-transparent"
+  <LoaderCircle
+    :class="cn('size-4 animate-spin', $props.class)"
     role="status"
     aria-label="Loading"
   />
