@@ -1,6 +1,6 @@
-# 7. Thinking like a senior
+# 7. Best practices and decisions
 
-Seniors are not people who know more syntax. They make decisions that keep code easy to change, and they can explain why.
+Good code is easy to change. These habits and decisions keep it that way.
 These habits will help you on every project, in any framework.
 
 ## Principles
