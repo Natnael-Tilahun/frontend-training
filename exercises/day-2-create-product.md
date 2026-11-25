@@ -21,7 +21,7 @@
 - [ ] **Product form** `app/components/product/ProductForm.vue` using `productInputSchema`, with an `action` prop so it can be reused for editing later.
 - [ ] **Create page:** submit → API → success toast → go to the new product's page.
 - [ ] **Permissions:** "Add product" visible only with `product.create`; `/products/new` protected by `definePageMeta({ permission: 'product.create' })`.
-- [ ] Show the sign-in name and a "Sign out" button in the layout header.
+- [ ] Show the signed-in user (`<UiAvatar>`, name) and a "Sign out" button at the bottom of the sidebar in `app/layouts/default.vue`.
 
 ## Stretch
 
