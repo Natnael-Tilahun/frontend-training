@@ -1,7 +1,7 @@
 # Home exercises
 
 Build these on top of `solution/day-2` (or your own Day 2 branch), one branch and one pull request per exercise.
-Use the PR template, and ask a colleague to review with the checklist in [`docs/07-senior-mindset.md`](../../docs/07-senior-mindset.md).
+Use the PR template, and ask a colleague to review with the checklist in [`docs/07-best-practices.md`](../../docs/07-best-practices.md).
 
 | #   | Exercise                                                     | Practises                                 |
 | --- | ------------------------------------------------------------ | ----------------------------------------- |
