@@ -25,15 +25,17 @@ The API is a mock that lives in `server/`. Changes are kept in memory and reset 
 
 ## Scripts
 
-| Command                             | What it does                           |
-| ----------------------------------- | -------------------------------------- |
-| `npm run dev`                       | Start the dev server with hot reload   |
-| `npm run build` / `npm run preview` | Production build and preview           |
-| `npm run lint` / `npm run lint:fix` | ESLint (Nuxt config)                   |
-| `npm run format`                    | Prettier                               |
-| `npm run typecheck`                 | Type-check everything with `vue-tsc`   |
-| `npm test`                          | Unit tests with Vitest                 |
-| `npm run check`                     | lint + typecheck + test (what CI runs) |
+| Command                             | What it does                                      |
+| ----------------------------------- | ------------------------------------------------- |
+| `npm run dev`                       | Start the dev server with hot reload              |
+| `npm run build` / `npm run preview` | Production build and preview                      |
+| `npm run lint` / `npm run lint:fix` | ESLint (Nuxt config)                              |
+| `npm run format`                    | Prettier                                          |
+| `npm run typecheck`                 | Type-check everything with `vue-tsc`              |
+| `npm test`                          | Unit tests with Vitest                            |
+| `npm run check`                     | lint + typecheck + test: run it before every push |
+
+What each tool is for, and how it is configured: [docs/10-tooling.md](docs/10-tooling.md). CI runs `npm run check` plus a production build on every push.
 
 ## How the training works
 
@@ -92,6 +94,7 @@ exercises/              # exercise briefs with acceptance criteria
 7. [Best practices and decisions](docs/07-best-practices.md)
 8. [Confusing concepts, explained](docs/08-confusing-concepts.md)
 9. [Reading an unfamiliar codebase](docs/09-reading-a-codebase.md)
+10. [Tooling: linting, formatting, type-checking, tests and CI](docs/10-tooling.md)
 
 ## Tech stack
 
