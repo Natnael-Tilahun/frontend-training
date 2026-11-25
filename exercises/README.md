@@ -11,5 +11,5 @@
 1. Create your own branch: `git switch -c my/day-1`.
 2. Search the code for `TODO (Day 1)` / `TODO (Day 2)`: they mark where to work.
 3. Do the **Core** tasks first. **Stretch** tasks are optional.
-4. Before you call it done, run `npm run check` (lint, typecheck, tests) and go through the review checklist in [`docs/07-senior-mindset.md`](../docs/07-senior-mindset.md).
+4. Before you call it done, run `npm run check` (lint, typecheck, tests) and go through the review checklist in [`docs/07-best-practices.md`](../docs/07-best-practices.md).
 5. Compare with the reference: `git diff solution/day-1 -- app/`. Different is fine; understand _why_ it's different.

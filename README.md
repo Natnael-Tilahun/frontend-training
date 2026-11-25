@@ -89,7 +89,7 @@ exercises/              # exercise briefs with acceptance criteria
 4. [Styling: Tailwind + UI kit](docs/04-styling.md)
 5. [State, API layer and auth](docs/05-state-and-api.md)
 6. [Forms and validation](docs/06-forms-and-validation.md)
-7. [Thinking like a senior](docs/07-senior-mindset.md)
+7. [Best practices and decisions](docs/07-best-practices.md)
 8. [Confusing concepts, explained](docs/08-confusing-concepts.md)
 9. [Reading an unfamiliar codebase](docs/09-reading-a-codebase.md)
 
