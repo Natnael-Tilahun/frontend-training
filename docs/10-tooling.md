@@ -217,10 +217,11 @@ Without the extensions, nothing is checked while you type, and you only find out
 
 ## Common problems
 
-| Symptom                                          | Cause and fix                                                                                               |
-| ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------- |
-| Saving doesn't format the file                   | Prettier extension missing, or another formatter is the default. Install it; check `.vscode/settings.json`. |
-| `Cannot find module './.nuxt/eslint.config.mjs'` | `.nuxt/` isn't generated yet. Run `npm install` or `npx nuxt prepare`.                                      |
-| Auto-imported names (`ref`, `useFetch`) are red  | Same: run `npx nuxt prepare`, then "Restart Vue Server" from the VS Code command palette.                   |
-| Lint passes locally but fails in CI              | You didn't run it on the whole project, or the lock file changed. Run `npm ci && npm run check`.            |
-| `npm ci` fails                                   | `package.json` and `package-lock.json` disagree. Run `npm install` and commit the lock file.                |
+| Symptom                                               | Cause and fix                                                                                                                 |
+| ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| Saving doesn't format the file                        | Prettier extension missing, or another formatter is the default. Install it; check `.vscode/settings.json`.                   |
+| `Cannot find module './.nuxt/eslint.config.mjs'`      | `.nuxt/` isn't generated yet. Run `npm install` or `npx nuxt prepare`.                                                        |
+| Auto-imported names (`ref`, `useFetch`) are red       | Same: run `npx nuxt prepare`, then "Restart Vue Server" from the VS Code command palette.                                     |
+| Lint passes locally but fails in CI                   | You didn't run it on the whole project, or the lock file changed. Run `npm ci && npm run check`.                              |
+| Typecheck or lint errors point inside `node_modules/` | A package didn't download completely (an interrupted install). Run `rm -rf node_modules .nuxt && npm cache verify && npm ci`. |
+| `npm ci` fails                                        | `package.json` and `package-lock.json` disagree. Run `npm install` and commit the lock file.                                  |
