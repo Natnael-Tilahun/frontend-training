@@ -58,6 +58,20 @@ await navigateTo('/products')
 
 Every screen that loads data handles **loading, error, empty and success**. See `app/pages/products/index.vue`.
 
+**`await useFetch` or `lazy: true`?** Both load the same data. The difference is what the user sees while waiting:
+
+```ts
+// Blocking: Nuxt holds the page back until the data arrives.
+// On navigation the previous page stays on screen; on reload the screen stays blank.
+const { data } = await useFetch('/api/products')
+
+// Lazy: the page shows at once and the data loads in the background,
+// so `status` is 'pending' and your skeleton is visible meanwhile.
+const { data, status } = useFetch('/api/products', { lazy: true }) // or useLazyFetch()
+```
+
+Use **lazy** when the page has its own loading state, like the skeletons in this repo. Use **await** when the page can't show anything useful without the data, or when the server must render it (SSR, for SEO). With `lazy`, `data` starts as `undefined`, so always handle the empty case (`data.value?.items ?? []`).
+
 ## Rendering modes
 
 | Mode          | Setting         | Good for                               |
