@@ -5,8 +5,12 @@ import type { Product } from '#shared/types/product'
 useHead({ title: 'Products' })
 
 // The data already loads. You don't need to understand useFetch until Day 2.
-const { data, status, error, refresh } = await useFetch<Paged<Product>>('/api/products', {
+// `lazy: true` shows the page at once and loads in the background, so the
+// skeleton below is visible while `status` is 'pending'. Without it,
+// `await useFetch` holds the whole page back until the data arrives.
+const { data, status, error, refresh } = useFetch<Paged<Product>>('/api/products', {
   query: { size: 100 },
+  lazy: true,
 })
 
 const products = computed(() => data.value?.items ?? [])

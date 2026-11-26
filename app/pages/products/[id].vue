@@ -6,12 +6,13 @@ const route = useRoute()
 const id = computed(() => Number(route.params.id))
 
 // A getter as the URL: when the route id changes, useFetch fetches again.
+// `lazy: true` shows the page at once, with the skeleton while it loads.
 const {
   data: product,
   status,
   error,
   refresh,
-} = await useFetch<Product>(() => `/api/products/${id.value}`)
+} = useFetch<Product>(() => `/api/products/${id.value}`, { lazy: true })
 
 const notFound = computed(() => getErrorStatus(error.value) === 404)
 
